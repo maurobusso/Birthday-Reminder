@@ -140,21 +140,33 @@ app.get('/findBirthday/:name?/:surname?', (request, response) => {
         query.friendSurname = { $regex: surname || '', $options: 'i' }
     }
 
+    if (name && surname) {
+        query.friendName = { $regex: name, $options: 'i' };
+        query.friendSurname = { $regex: surname, $options: 'i' };
+    } else if (name) {
+        query.friendName = { $regex: name, $options: 'i' };
+    } else if (surname) {
+        query.friendSurname = { $regex: surname, $options: 'i' };
+    } else {
+        return response.status(400).send('At least one parameter (name or surname) is required');
+    }
+    
     //this was the previus way of building the query (not very mantainable and clear)
     // db.collection('friends').findOne({ $and: [ { friendName: { $regex: name || '', $options: 'i' } }, { friendSurname: { $regex: surname || '', $options: 'i' } } ] })
 
     // check if name is present in DB it is been changed so that even partials strings will be valid
     // db.collection('friends').findOne({ $or: [ query, {} ] })
-
+    console.log(query)
     db.collection('friends').findOne(query)
 
 
     .then(data => {
+        console.log(data)
         if (data) {
             response.send( data )
             console.log('Birthday found')
         } else {
-            response.send('No birthday found')
+            response.send({ error: 'No birthday found' })
         }
     })
     .catch(error => console.error(error))

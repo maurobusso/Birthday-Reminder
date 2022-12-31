@@ -79,19 +79,21 @@ async function findFriend(){
             const data = await response.json()
             console.log(data)
 
-            if ( data ) {
+            if (data.error) {
+                resultDiv.innerText = data.error
+
+            }else { 
                 resultDiv.innerText = ` Name: ${data.friendName}
                                         Surname: ${data.friendSurname} 
                                         Birthday: ${data.birthday}
                                         Age: ${data.age} `
                 
                 console.log('Birthday found')
-            } else {
-                resultDiv.innerText = 'No birthday Found'
             }
-            }catch(err){
-                console.log(err)
-            }
+
+        }catch(err){
+            console.log(err)
+        }
         return
     }
 
@@ -104,19 +106,21 @@ async function findFriend(){
             const data = await response.json()
             console.log(data)
 
-            if ( data ) {
+            if (data.error) {
+                resultDiv.innerText = data.error
+
+            }else { 
                 resultDiv.innerText = ` Name: ${data.friendName}
                                         Surname: ${data.friendSurname} 
                                         Birthday: ${data.birthday}
                                         Age: ${data.age} `
                 
                 console.log('Birthday found')
-            } else {
-                resultDiv.innerText = 'No birthday Found'
             }
-            }catch(err){
-                console.log(err)
-            }
+
+        }catch(err){
+            console.log(err)
+        }
         return
     }
     
@@ -130,15 +134,16 @@ async function findFriend(){
             const data = await response.json()
             console.log(data)
 
-            if ( data ) {
+            if (data.error) {
+                resultDiv.innerText = data.error
+
+            }else { 
                 resultDiv.innerText = ` Name: ${data.friendName}
                                         Surname: ${data.friendSurname} 
                                         Birthday: ${data.birthday}
                                         Age: ${data.age} `
                 
                 console.log('Birthday found')
-            } else {
-                resultDiv.innerText = 'No birthday Found'
             }
 
         }catch(err){
