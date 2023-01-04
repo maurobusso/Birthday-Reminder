@@ -56,18 +56,17 @@ const findBd = document.getElementById('findBd-btn')
 findBd.addEventListener('click', findFriend)
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    findBd();
+    event.preventDefault()
 })
 
 async function findFriend(){
     const friendName = document.getElementById('friendName').value.toLowerCase().trim()
     const friendSurname = document.getElementById('friendSurname').value.toLowerCase().trim()
 
-    if (friendName === '' && friendSurname === '') {
+    if (friendName === '' || friendSurname === '') {
         // The input field is empty or contains only whitespace
-        resultDiv.innerText = 'Please enter a name';
-        return;
+        resultDiv.innerText = 'Please enter a valid name'
+        return
     }
     
     try{
@@ -75,19 +74,38 @@ async function findFriend(){
         //deleteFriend is the rout that is in the server side
         const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
         
+        //this makes sure the response always
         const data = await response.json()
         console.log(data)
-        if (data) {
-            resultDiv.innerText = `Name: ${data.friendName}
-                                   Surname: ${data.friendSurname} 
-                                   Birthday: ${data.birthday}
-                                   Age: ${data.age} `
 
-            console.log('Birthday found');
+        if ( data ) {
+            resultDiv.innerText = ` Name: ${data.friendName}
+                                    Surname: ${data.friendSurname} 
+                                    Birthday: ${data.birthday}
+                                    Age: ${data.age} `
+            
+            console.log('Birthday found')
         } else {
-            resultDiv.innerText = 'No birthday found';
+            resultDiv.innerText = stringify(new String('No birthday Found'))
         }
+
     }catch(err){
         console.log(err)
     }
+}
+
+const inputErrorDiv = document.getElementById('inputError')
+const addBdBtn = document.getElementById('add-btn')
+addBdBtn.addEventListener('click', addBd)
+
+async function addBd() {
+    const friendName = document.getElementById('addName').value.toLowerCase().trim()
+    const friendSurname = document.getElementById('addSurname').value.toLowerCase().trim()
+    const dateBd = document.getElementById('dateBd').value
+
+    if (friendName === '' || friendSurname === '' || dateBd === '' ) {
+        // The input field is empty or contains only whitespace
+        inputErrorDiv.innerText = 'Please enter a valid Name/Date'
+    }
+
 }

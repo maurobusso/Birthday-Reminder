@@ -62,16 +62,20 @@
             <button type="submit" id="findBd-btn">submit</button>
         </form>
         <div id="result"></div>
-    
     </section>
 
-    <h2>Add A Birthday:</h2>
-    <form action="/addBirthday" method="POST">
-        <input type="text" placeholder="Name" name="friendName">
-        <input type="text" placeholder="Surname" name="friendSurname">
-        <input type="date" placeholder="Birthday" name="birthday">
-        <input type="submit">
-    </form>    
+    <section>
+        <h2>Add A Birthday:</h2>
+        
+        <form action="/addBirthday" method="POST">
+            <input type="text" placeholder="Name" name="friendName" id="addName">
+            <input type="text" placeholder="Surname" name="friendSurname" id="addSurname">
+            <input type="date" placeholder="Birthday" name="birthday" id="dateBd">
+            <button type="submit" id="add-btn">submit</button>
+            <input type="submit">
+        </form> 
+        <div id="inputError"></div>   
+    </section>
 
     <script src='/js/main.js'></script>
 </body>

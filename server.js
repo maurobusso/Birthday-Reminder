@@ -71,16 +71,17 @@ app.post('/addBirthday', async(request, response) => {
     //const existingFriends = await db.collection('friends').findOne({ $and: [ { friendName: { $exists: true } }, { friendSurname: { $exists: true } }, { friendName: friendName }, { friendSurname: friendSurname } ] })
     
     //handles if there is no name or date
-    if( (friendName === '' || friendSurname === '') && birthday === '' ){
-        response.status(400).send('insert valid inputs')
-        return
-    }
+    // if( friendName === '' || friendSurname === '' || birthday === NaN ){
+    //     response.status(400).send('insert valid inputs')
+    //     return
+    // }
+
     //handle if the name is alredy in the database
 
     if( existingFriends !== null ){
-        response.status(400).send('someone with that name is already exist been saved')
-        return
-    }
+        response.status(400).send('someone with that name already exist')
+    
+    }else{
 
     // this function will calculate the age of a person
 
@@ -109,9 +110,10 @@ app.post('/addBirthday', async(request, response) => {
     
     .then(result => {
         console.log('Birthday Added')
-        response.redirect('/')
+        //response.redirect('/')
     })
     .catch(error => console.error(error))
+    }
 })
 
 
@@ -122,10 +124,26 @@ app.get('/findBirthday/:name/:surname', (request, response) => {
     const name = request.params.name.toLowerCase()
     const surname = request.params.surname.toLowerCase()
 
-    // check if name is present in DB
-    db.collection('friends').findOne({ $or: [ { friendName: name || undefined }, { friendSurname: surname || undefined }  ] })
+    // a better way to build the query would be to use an object like here
+    const query = {};
+    if (name) {
+        query.friendName = { $regex: name || '', $options: 'i' }
+    }
+    if (surname) {
+        query.friendSurname = { $regex: surname || '', $options: 'i' }
+    }
+
+    //this was the previus way of building the query 
+    // db.collection('friends').findOne({ $and: [ { friendName: { $regex: name || '', $options: 'i' } }, { friendSurname: { $regex: surname || '', $options: 'i' } } ] })
+
+    // check if name is present in DB it is been changed sio that even partials strings will be valid
+    // db.collection('friends').findOne({ $or: [ query, {} ] })
+
+    db.collection('friends').findOne(query)
+
+
     .then(data => {
-        console.log(data)
+        // console.log(data)
         if (data) {
             response.send( data )
             console.log('Birthday found')
@@ -174,10 +192,10 @@ app.get('/seeListBirthdays', (request, response) => {
 
 //update existing birthdays
 
-app.post('/seeListBirthdays/updateBirthday', async(request, response) => {
-
-        response.render('updatedBd.ejs', {friend: data})
-    
+app.post('/updateBirthday', async(request, response) => {
+//might need the id of the document 
+    response.send('updatedBd.ejs')
+        
 })
 
 
