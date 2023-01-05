@@ -94,6 +94,31 @@ async function findFriend(){
         }
         return
     }
+
+    //handle if only surname is present
+    if( !friendName && friendSurname ){
+        try{
+            const response = await fetch(`/findBirthday/${friendSurname}`)
+
+            //this makes sure the response always
+        const data = await response.json()
+        console.log(data)
+
+        if ( data ) {
+            resultDiv.innerText = ` Name: ${data.friendName}
+                                    Surname: ${data.friendSurname} 
+                                    Birthday: ${data.birthday}
+                                    Age: ${data.age} `
+            
+            console.log('Birthday found')
+        } else {
+            resultDiv.innerText = stringify(new String('No birthday Found'))
+        }
+        }catch(err){
+            console.log(err)
+        }
+        return
+    }
     
     try{
         //fetch to the server to grab the name of who i want to delete

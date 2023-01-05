@@ -119,12 +119,20 @@ app.post('/addBirthday', async(request, response) => {
 // find a birthday by name 
 
 app.get('/findBirthday/:name?/:surname?', (request, response) => {
-    //handle if no input is given
-    const name = request.params.name.toLowerCase()
-    const surname = request.params.surname.toLowerCase()
+    let name = request.params.name
+    let surname = request.params.surname
+
+    //check if name and surname are not undefinet then use lowercase and trim
+    if (typeof name !== 'undefined') {
+        name = name.toLowerCase().trim()
+    }
+    if (typeof surname !== 'undefined') {
+        surname = surname.toLowerCase().trim()
+    }
 
     // a better way to build the query would be to use an object like here
-    const query = {};
+    const query = {}
+
     if (name) {
         query.friendName = { $regex: name || '', $options: 'i' }
     }
@@ -132,24 +140,22 @@ app.get('/findBirthday/:name?/:surname?', (request, response) => {
         query.friendSurname = { $regex: surname || '', $options: 'i' }
     }
 
-    //this was the previus way of building the query 
+    //this was the previus way of building the query (not very mantainable and clear)
     // db.collection('friends').findOne({ $and: [ { friendName: { $regex: name || '', $options: 'i' } }, { friendSurname: { $regex: surname || '', $options: 'i' } } ] })
 
-    // check if name is present in DB it is been changed sio that even partials strings will be valid
+    // check if name is present in DB it is been changed so that even partials strings will be valid
     // db.collection('friends').findOne({ $or: [ query, {} ] })
 
     db.collection('friends').findOne(query)
 
 
     .then(data => {
-        // console.log(data)
         if (data) {
             response.send( data )
             console.log('Birthday found')
         } else {
             response.send('No birthday found')
         }
-        //response.redirect('/')
     })
     .catch(error => console.error(error))
 })
