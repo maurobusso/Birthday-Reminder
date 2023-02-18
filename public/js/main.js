@@ -48,7 +48,7 @@ async function updateBirthday(){
 }
 
 
-// find birthday by name
+// find birthday by name or surname 
 
 const form = document.getElementById('form')
 const resultDiv = document.getElementById('result')
@@ -75,23 +75,23 @@ async function findFriend(){
         try{
             const response = await fetch(`/findBirthday/${friendName}`)
 
-            //this makes sure the response always
-        const data = await response.json()
-        console.log(data)
+            //this makes sure the response always json
+            const data = await response.json()
+            console.log(data)
 
-        if ( data ) {
-            resultDiv.innerText = ` Name: ${data.friendName}
-                                    Surname: ${data.friendSurname} 
-                                    Birthday: ${data.birthday}
-                                    Age: ${data.age} `
-            
-            console.log('Birthday found')
-        } else {
-            resultDiv.innerText = stringify(new String('No birthday Found'))
-        }
-        }catch(err){
-            console.log(err)
-        }
+            if ( data ) {
+                resultDiv.innerText = ` Name: ${data.friendName}
+                                        Surname: ${data.friendSurname} 
+                                        Birthday: ${data.birthday}
+                                        Age: ${data.age} `
+                
+                console.log('Birthday found')
+            } else {
+                resultDiv.innerText = 'No birthday Found'
+            }
+            }catch(err){
+                console.log(err)
+            }
         return
     }
 
@@ -100,48 +100,50 @@ async function findFriend(){
         try{
             const response = await fetch(`/findBirthday/${friendSurname}`)
 
-            //this makes sure the response always
-        const data = await response.json()
-        console.log(data)
+            //this makes sure the response always json
+            const data = await response.json()
+            console.log(data)
 
-        if ( data ) {
-            resultDiv.innerText = ` Name: ${data.friendName}
-                                    Surname: ${data.friendSurname} 
-                                    Birthday: ${data.birthday}
-                                    Age: ${data.age} `
-            
-            console.log('Birthday found')
-        } else {
-            resultDiv.innerText = stringify(new String('No birthday Found'))
-        }
-        }catch(err){
-            console.log(err)
-        }
+            if ( data ) {
+                resultDiv.innerText = ` Name: ${data.friendName}
+                                        Surname: ${data.friendSurname} 
+                                        Birthday: ${data.birthday}
+                                        Age: ${data.age} `
+                
+                console.log('Birthday found')
+            } else {
+                resultDiv.innerText = 'No birthday Found'
+            }
+            }catch(err){
+                console.log(err)
+            }
         return
     }
     
-    try{
-        //fetch to the server to grab the name of who i want to delete
-        //deleteFriend is the rout that is in the server side
-        const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
-        
-        //this makes sure the response always
-        const data = await response.json()
-        console.log(data)
-
-        if ( data ) {
-            resultDiv.innerText = ` Name: ${data.friendName}
-                                    Surname: ${data.friendSurname} 
-                                    Birthday: ${data.birthday}
-                                    Age: ${data.age} `
+    if( friendName && friendSurname ){
+        try{
+            //fetch to the server to grab the name of who i want to delete
+            //deleteFriend is the rout that is in the server side
+            const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
             
-            console.log('Birthday found')
-        } else {
-            resultDiv.innerText = stringify(new String('No birthday Found'))
-        }
+            //this makes sure the response always
+            const data = await response.json()
+            console.log(data)
 
-    }catch(err){
-        console.log(err)
+            if ( data ) {
+                resultDiv.innerText = ` Name: ${data.friendName}
+                                        Surname: ${data.friendSurname} 
+                                        Birthday: ${data.birthday}
+                                        Age: ${data.age} `
+                
+                console.log('Birthday found')
+            } else {
+                resultDiv.innerText = 'No birthday Found'
+            }
+
+        }catch(err){
+            console.log(err)
+        }
     }
 }
 

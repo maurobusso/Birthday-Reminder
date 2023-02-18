@@ -109,7 +109,7 @@ app.post('/addBirthday', async(request, response) => {
     
     .then(result => {
         console.log('Birthday Added')
-        //response.redirect('/')
+        response.redirect('/')
     })
     .catch(error => console.error(error))
     }
