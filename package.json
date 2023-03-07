@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": { 
+  "scripts": {
+    "build:css": "postcss public/css/input.css -o public/dist/output.css", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

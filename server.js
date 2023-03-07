@@ -16,6 +16,7 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
 
 //set EJS for views    
 app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, ''))
 
 //Stati folder
 app.use(express.static('public'))
