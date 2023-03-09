@@ -1,13 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./public/**/*.{html,js}",
-    "./views/*.ejs"
-  ],
+  content: [],
   theme: {
     extend: {},
   },
   plugins: [],
 }
 
-// npx tailwindcss -i ./public/css/input.css -o ./public/dist/output.css --watch
+// npx tailwindcss -i ./public/css/input.css -o ./public/css/output.css --watch
