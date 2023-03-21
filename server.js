@@ -116,13 +116,13 @@ app.post('/addBirthday', async(request, response) => {
 })
 
 
-// find a birthday by name 
+// find a birthday by name and surname or by only name
 
 app.get('/findBirthday/:name?/:surname?', (request, response) => {
     let name = request.params.name
     let surname = request.params.surname
 
-    //check if name and surname are not undefinet then use lowercase and trim
+    //check if name and surname are not undefinet then use lowercase and trim methods
     if (typeof name !== 'undefined') {
         name = name.toLowerCase().trim()
     }
@@ -133,12 +133,12 @@ app.get('/findBirthday/:name?/:surname?', (request, response) => {
     // a better way to build the query would be to use an object like here
     const query = {}
 
-    if (name) {
-        query.friendName = { $regex: name || '', $options: 'i' }
-    }
-    if (surname) {
-        query.friendSurname = { $regex: surname || '', $options: 'i' }
-    }
+    // if (name) {
+    //     query.friendName = { $regex: name || '', $options: 'i' }
+    // }
+    // if (surname) {
+    //     query.friendSurname = { $regex: surname || '', $options: 'i' }
+    // }
 
     if (name && surname) {
         query.friendName = { $regex: name, $options: 'i' };
@@ -159,6 +159,40 @@ app.get('/findBirthday/:name?/:surname?', (request, response) => {
     console.log(query)
     db.collection('friends').findOne(query)
 
+    .then(data => {
+        console.log(data)
+        if (data) {
+            response.send( data )
+            console.log('Birthday found')
+        } else {
+            response.send({ error: 'No birthday found' })
+        }
+    })
+    .catch(error => console.error(error))
+})
+
+
+// find friend by surname only
+
+app.get('/findBirthday//:surname?', (request, response) => {
+    let surname = request.params.surname
+
+    //check if name and surname are not undefinet then use lowercase and trim
+    if (typeof surname !== 'undefined') {
+        surname = surname.toLowerCase().trim()
+    }
+
+    //build query
+    const query = {}
+
+    if ( !surname ) {
+        return response.status(400).send('A valid surname is required')
+    } else {
+        query.friendSurname = { $regex: surname, $options: 'i' }
+    }
+
+    console.log(query)
+    db.collection('friends').findOne(query)
 
     .then(data => {
         console.log(data)
@@ -171,6 +205,7 @@ app.get('/findBirthday/:name?/:surname?', (request, response) => {
     })
     .catch(error => console.error(error))
 })
+
 
 //sanitize input
 
@@ -189,7 +224,6 @@ app.delete('/deleteFriend', (request, response) => {
     .catch(error => console.error(error))
 
 })
-
 
 
 // this is to display the full list of people in the databe

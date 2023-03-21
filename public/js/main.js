@@ -62,94 +62,125 @@ form.addEventListener('submit', (event) => {
 async function findFriend(){
     const friendName = document.getElementById('friendName').value.toLowerCase().trim()
     const friendSurname = document.getElementById('friendSurname').value.toLowerCase().trim()
-    
-    //handle if no input are present
+
+    //handle if no input are present or contains only whitespace
     if (friendName === '' && friendSurname === '') {
-        // The input field is empty or contains only whitespace
         resultDiv.innerText = 'Please enter a valid name'
         return
     }
 
-    //handle if only name is present
-    if( friendName && !friendSurname ){
-        try{
-            const response = await fetch(`/findBirthday/${friendName}`)
+    const url = `/findBirthday/${friendName}/${friendSurname ? friendSurname : ''}`
 
-            //this makes sure the response always json
-            const data = await response.json()
-            console.log(data)
+    try{
+        const response = await fetch(url)
 
-            if (data.error) {
-                resultDiv.innerText = data.error
+        //this makes sure the response always json
+        const data = await response.json()
+        console.log(data)
 
-            }else { 
-                resultDiv.innerText = ` Name: ${data.friendName}
-                                        Surname: ${data.friendSurname} 
-                                        Birthday: ${data.birthday}
-                                        Age: ${data.age} `
-                
-                console.log('Birthday found')
-            }
+        if (data.error) {
+            resultDiv.innerText = data.error
 
-        }catch(err){
-            console.log(err)
+        }else { 
+            resultDiv.innerText = ` Name: ${data.friendName}
+                                    Surname: ${data.friendSurname} 
+                                    Birthday: ${data.birthday}
+                                    Age: ${data.age} `
+            
+            console.log('Birthday found')
         }
-        return
-    }
 
-    //handle if only surname is present
-    if( !friendName && friendSurname ){
-        try{
-            const response = await fetch(`/findBirthday/${friendSurname}`)
-
-            //this makes sure the response always json
-            const data = await response.json()
-            console.log(data)
-
-            if (data.error) {
-                resultDiv.innerText = data.error
-
-            }else { 
-                resultDiv.innerText = ` Name: ${data.friendName}
-                                        Surname: ${data.friendSurname} 
-                                        Birthday: ${data.birthday}
-                                        Age: ${data.age} `
-                
-                console.log('Birthday found')
-            }
-
-        }catch(err){
-            console.log(err)
-        }
-        return
+    }catch(err){
+        console.log(err)
     }
     
-    if( friendName && friendSurname ){
-        try{
-            //fetch to the server to grab the name of who i want to delete
-            //deleteFriend is the rout that is in the server side
-            const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
-            
-            //this makes sure the response always
-            const data = await response.json()
-            console.log(data)
+    // //handle if no input are present
+    // if (friendName === '' && friendSurname === '') {
+    //     // The input field is empty or contains only whitespace
+    //     resultDiv.innerText = 'Please enter a valid name'
+    //     return
+    // }
 
-            if (data.error) {
-                resultDiv.innerText = data.error
+    // //handle if only name is present
+    // if( friendName && !friendSurname ){
+    //     try{
+    //         const response = await fetch(`/findBirthday/${friendName}`)
 
-            }else { 
-                resultDiv.innerText = ` Name: ${data.friendName}
-                                        Surname: ${data.friendSurname} 
-                                        Birthday: ${data.birthday}
-                                        Age: ${data.age} `
+    //         //this makes sure the response always json
+    //         const data = await response.json()
+    //         console.log(data)
+
+    //         if (data.error) {
+    //             resultDiv.innerText = data.error
+
+    //         }else { 
+    //             resultDiv.innerText = ` Name: ${data.friendName}
+    //                                     Surname: ${data.friendSurname} 
+    //                                     Birthday: ${data.birthday}
+    //                                     Age: ${data.age} `
                 
-                console.log('Birthday found')
-            }
+    //             console.log('Birthday found')
+    //         }
 
-        }catch(err){
-            console.log(err)
-        }
-    }
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    //     return
+    // }
+
+    // //handle if only surname is present
+    // if( !friendName && friendSurname ){
+    //     try{
+    //         const response = await fetch(`/findBirthday/${friendSurname}`)
+
+    //         //this makes sure the response always json
+    //         const data = await response.json()
+    //         console.log(data)
+
+    //         if (data.error) {
+    //             resultDiv.innerText = data.error
+
+    //         }else { 
+    //             resultDiv.innerText = ` Name: ${data.friendName}
+    //                                     Surname: ${data.friendSurname} 
+    //                                     Birthday: ${data.birthday}
+    //                                     Age: ${data.age} `
+                
+    //             console.log('Birthday found')
+    //         }
+
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    //     return
+    // }
+    
+    // if( friendName && friendSurname ){
+    //     try{
+    //         //fetch to the server to grab the name of who i want to delete
+    //         //deleteFriend is the rout that is in the server side
+    //         const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
+            
+    //         //this makes sure the response always
+    //         const data = await response.json()
+    //         console.log(data)
+
+    //         if (data.error) {
+    //             resultDiv.innerText = data.error
+
+    //         }else { 
+    //             resultDiv.innerText = ` Name: ${data.friendName}
+    //                                     Surname: ${data.friendSurname} 
+    //                                     Birthday: ${data.birthday}
+    //                                     Age: ${data.age} `
+                
+    //             console.log('Birthday found')
+    //         }
+
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+    // }
 }
 
 const inputErrorDiv = document.getElementById('inputError')
