@@ -71,9 +71,9 @@ async function findFriend(){
     }
 
     //handle if only name is present
-    if( friendName && friendSurname === ''){
+    if( friendName && !friendSurname ){
         try{
-            const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
+            const response = await fetch(`/findBirthday/${friendName}`)
 
             //this makes sure the response always
         const data = await response.json()
@@ -92,7 +92,7 @@ async function findFriend(){
         }catch(err){
             console.log(err)
         }
-        
+        return
     }
     
     try{

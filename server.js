@@ -118,7 +118,7 @@ app.post('/addBirthday', async(request, response) => {
 
 // find a birthday by name 
 
-app.get('/findBirthday/:name/:surname', (request, response) => {
+app.get('/findBirthday/:name?/:surname?', (request, response) => {
     //handle if no input is given
     const name = request.params.name.toLowerCase()
     const surname = request.params.surname.toLowerCase()
