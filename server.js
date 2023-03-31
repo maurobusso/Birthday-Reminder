@@ -21,12 +21,16 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-app.get('/',(request, response)=>{
-    db.collection('friends').find().sort({likes: -1}).toArray()
-    .then(data => {
-        response.render('index.ejs', { info: data })
-    })
-    .catch(error => console.error(error))
+// app.get('/',(request, response)=>{
+//     db.collection('friends').find().sort().toArray()
+//     .then(data => {
+//         response.render('index.ejs', { info: data })
+//     })
+//     .catch(error => console.error(error))
+// })
+
+app.get('/',(request, response) => {
+    response.render('index.ejs')
 })
 
 
@@ -55,33 +59,33 @@ app.get('/findBirthday/:name', (request, response) => {
     .catch(error => console.error(error))
 })
 
-app.put('/addOneLike', (request, response) => {
-    db.collection('rappers').updateOne({stageName: request.body.stageNameS, birthName: request.body.birthNameS,likes: request.body.likesS},{
-        $set: {
-            likes:request.body.likesS + 1
-          }
-    },{
-        sort: {_id: -1},
-        upsert: true
-    })
-    .then(result => {
-        console.log('Added One Like')
-        response.json('Like Added')
-    })
-    .catch(error => console.error(error))
+// app.put('/addOneLike', (request, response) => {
+//     db.collection('rappers').updateOne({stageName: request.body.stageNameS, birthName: request.body.birthNameS,likes: request.body.likesS},{
+//         $set: {
+//             likes:request.body.likesS + 1
+//           }
+//     },{
+//         sort: {_id: -1},
+//         upsert: true
+//     })
+//     .then(result => {
+//         console.log('Added One Like')
+//         response.json('Like Added')
+//     })
+//     .catch(error => console.error(error))
 
-})
+// })
 
 
-app.delete('/deleteRapper', (request, response) => {
-    db.collection('rappers').deleteOne({stageName: request.body.stageNameS})
-    .then(result => {
-        console.log('Rapper Deleted')
-        response.json('Rapper Deleted')
-    })
-    .catch(error => console.error(error))
+// app.delete('/deleteRapper', (request, response) => {
+//     db.collection('rappers').deleteOne({stageName: request.body.stageNameS})
+//     .then(result => {
+//         console.log('Rapper Deleted')
+//         response.json('Rapper Deleted')
+//     })
+//     .catch(error => console.error(error))
 
-})
+// })
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
@@ -92,8 +96,8 @@ app.listen(process.env.PORT || PORT, ()=>{
 app.get('/seeListBirthdays', (request, response) => {
     db.collection('friends').find().toArray()
       .then(data => {
-        console.log(data)
-        response.render('index.ejs', {info: data})
+        console.log('done')
+        response.render('list.ejs', {friend: data})
       })
       .catch(err => {
         console.error(err);
