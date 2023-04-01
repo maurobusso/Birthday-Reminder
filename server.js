@@ -20,7 +20,6 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-
 // app.get('/',(request, response)=>{
 //     db.collection('friends').find().sort().toArray()
 //     .then(data => {
@@ -30,13 +29,62 @@ app.use(express.json())
 // })
 
 app.get('/',(request, response) => {
-    response.render('index.ejs')
+    db.collection('friends').countDocuments()
+    .then(count => {
+        // console.log('Count:', count);
+        response.render('index.ejs', { count: count});
+      })
+      .catch(error => {
+        console.error(error);
+        response.render('index', { count: null, error: 'Failed to retrieve count' });
+      });
+    
 })
 
+//this is to add a friend and a birthday date
 
 app.post('/addBirthday', (request, response) => {
-    db.collection('friends').insertOne({friendName: request.body.friendName,
-    birthday: request.body.birthday, likes: 0})
+
+    const friendName = request.body.friendName
+    const birthday = request.body.birthday
+    const existingFriends = db.collection('friends').findOne({friendName: friendName})
+    
+    //handles if there is no name or date
+    if( !friendName || !birthday ){
+        response.status(400).send('insert valid inputs')
+        return
+    }
+    //handle if the name is alredy in the database
+
+    if( existingFriends !== null){
+        response.status(400).send('same name already exist')
+        return
+    }
+
+    // this function will calculate the age of a person
+
+    function calcAge(birthday) {
+        // Parse birthdate string into Date object
+        const dob = new Date(birthday);
+      
+        // Calculate time difference in milliseconds between dob and today's date
+        const diffMs = Date.now() - dob.getTime();
+      
+        // Convert time difference to years
+        const ageDate = new Date(diffMs);
+        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+        
+        return age
+      }
+
+    const document = {
+        friendName: friendName,
+        birthday: birthday, 
+        age: calcAge(birthday)
+    }
+
+    db.collection('friends').insertOne(document)
+    
     .then(result => {
         console.log('Birthday Added')
         response.redirect('/')
@@ -47,17 +95,29 @@ app.post('/addBirthday', (request, response) => {
 //--------------------
 
 app.get('/findBirthday/:name', (request, response) => {
-    const name = request.query.name
+    const name = request.params.name
+
+    //handle if no input is given
+    if(name == ''){
+        response.status(400).send('insert valid name')
+        return
+    }
     // check if name is present in DB
     db.collection('friends').findOne({friendName: name})
     .then(data => {
         console.log(data)
-        response.render('index.ejs', {info: data})
-        console.log('Birthday found')
+        if (data) {
+            response.send( data )
+            console.log('Birthday found')
+        } else {
+            response.send('No birthday found')
+        }
         //response.redirect('/')
     })
     .catch(error => console.error(error))
 })
+
+
 
 // app.put('/addOneLike', (request, response) => {
 //     db.collection('rappers').updateOne({stageName: request.body.stageNameS, birthName: request.body.birthNameS,likes: request.body.likesS},{
@@ -93,8 +153,11 @@ app.listen(process.env.PORT || PORT, ()=>{
 
 //-----------------
 
+// htis is to display the full list of people in the databe
+
 app.get('/seeListBirthdays', (request, response) => {
-    db.collection('friends').find().toArray()
+    //this sort order the friend from youngest
+    db.collection('friends').find().sort({age: +1}).toArray()
       .then(data => {
         console.log('done')
         response.render('list.ejs', {friend: data})

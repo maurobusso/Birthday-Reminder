@@ -13,16 +13,21 @@
     </form>
 
     <span>
-        <% if(friend.length == 0) { <p>The database is empty</p>} %>
-        <% for(let i=0; i < friend.length; i++) {%>
-            <li class="friend" style="list-style-type:none">
-                
-                <span><%= friend[i].friendName %></span>
-                <span><%= friend[i].birthday %></span>
-
-            </li>
-        <% } %>
+        <% if (friend.length > 0) { %>
+            <% friend.forEach((friend) => { %>
+                <li class="friend" style="list-style-type:none">
+                    <span class='fa fa-thumbs-up'></span>
+                    <span class='fa fa-trash'></span>
+                    <p> Name: <%= friend.friendName %> </p>
+                    <p> DOB: <%= friend.birthday %> </p>
+                    <p> Age: <%= friend.age %> </p>
+                    <br>
+                </li>
+            <% }); %>
+          <% } else { %>
+            <p>No data available</p>
+          <% } %>
     </span>
-    
+
 </body>
 </html>

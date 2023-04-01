@@ -18,23 +18,27 @@
     <title>Document</title>
 </head>
 <body>
+    
+    <p>Number of birthdays in the database: <%= count %></p>
+     
+    <section>
+        <h1>Find a birthday</h1>
 
-    <h1>Find a birthday</h1>
-    <form action="/findBirthday/:name" method="GET" >
-        <input type="text" id="friendName" name="name">
-        <input type="submit">
-    </form>
+        <form action="/findBirthday/:name" method="GET">
+            <input type="text" id="friendName" name="name">
+            <input type="submit">
+        </form>
+    
+    </section>
+  
+        
 
     <h1>List of birthdays</h1>
-    <!-- <button action="/seeListBirthdays" method="GET">See</button> -->
     <form action="/seeListBirthdays" method="GET">
-        <button type="submit">See List of Birthdays</button>
+        <button type="submit">See full List</button>
     </form>
 
-
-
     <h2>Add A Birthday:</h2>
-
     <form action="/addBirthday" method="POST">
         <input type="text" placeholder="Name" name="friendName">
         <input type="date" placeholder="Birthday" name="birthday">
