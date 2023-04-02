@@ -43,11 +43,11 @@ app.get('/',(request, response) => {
 
 //this is to add a friend and a birthday date
 
-app.post('/addBirthday', (request, response) => {
+app.post('/addBirthday', async(request, response) => {
 
     const friendName = request.body.friendName
     const birthday = request.body.birthday
-    const existingFriends = db.collection('friends').findOne({friendName: friendName})
+    const existingFriends = await db.collection('friends').findOne({friendName: friendName})
     
     //handles if there is no name or date
     if( !friendName || !birthday ){
@@ -56,7 +56,7 @@ app.post('/addBirthday', (request, response) => {
     }
     //handle if the name is alredy in the database
 
-    if( existingFriends !== null){
+    if( existingFriends !== null ){
         response.status(400).send('same name already exist')
         return
     }
@@ -95,7 +95,7 @@ app.post('/addBirthday', (request, response) => {
 //--------------------
 
 app.get('/findBirthday/:name', (request, response) => {
-    const name = request.params.name
+    const name = request.params.name.toLowerCase()
 
     //handle if no input is given
     if(name == ''){
@@ -136,22 +136,25 @@ app.get('/findBirthday/:name', (request, response) => {
 
 // })
 
+// delete a birthday 
 
-// app.delete('/deleteRapper', (request, response) => {
-//     db.collection('rappers').deleteOne({stageName: request.body.stageNameS})
-//     .then(result => {
-//         console.log('Rapper Deleted')
-//         response.json('Rapper Deleted')
-//     })
-//     .catch(error => console.error(error))
+app.delete('/deleteFriend', (request, response) => {
+    console.log(request)
+    db.collection('friends').deleteOne({friendName: request.body.friendName})
+    .then(result => {
+        console.log('Friend Deleted')
+        response.json('Friend Deleted')
+    })
+    .catch(error => console.error(error))
 
-// })
+})
+
+//listen on port ...
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
 
-//-----------------
 
 // htis is to display the full list of people in the databe
 
@@ -159,7 +162,6 @@ app.get('/seeListBirthdays', (request, response) => {
     //this sort order the friend from youngest
     db.collection('friends').find().sort({age: +1}).toArray()
       .then(data => {
-        console.log('done')
         response.render('list.ejs', {friend: data})
       })
       .catch(err => {

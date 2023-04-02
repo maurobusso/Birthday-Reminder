@@ -1,24 +1,31 @@
-const deleteText = document.querySelectorAll('.fa-trash')
-const thumbText = document.querySelectorAll('.fa-thumbs-up')
+const findBirthday = document.getElementById('button')
+const deleteText = document.querySelectorAll('.fa-user-minus')
+const updateText = document.querySelectorAll('.fa-pen-to-square')
 
 Array.from(deleteText).forEach((element)=>{
-    element.addEventListener('click', deleteRapper)
+    element.addEventListener('click', deleteBirthday)
 })
 
-Array.from(thumbText).forEach((element)=>{
-    element.addEventListener('click', addLike)
+Array.from(updateText).forEach((element)=>{
+    element.addEventListener('click', updateBirthday)
 })
 
-async function deleteRapper(){
-    const sName = this.parentNode.childNodes[1].innerText
-    const bName = this.parentNode.childNodes[3].innerText
+async function deleteBirthday(){
+    console.log('done')
+
+    const friendName = this.parentNode.childNodes[5].innerText.slice(6)
+    const birthday = this.parentNode.childNodes[7].innerText.slice(5)
+    const age = this.parentNode.childNodes[9].innerText.slice(5)
     try{
-        const response = await fetch('deleteRapper', {
+        //fetch to the server to grab the name of who i want to delete
+        //deleteFriend is the rout that is in the server side
+        const response = await fetch('deleteFriend', {
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              'stageNameS': sName,
-              'birthNameS': bName
+              'friendName': friendName,
+              'birthday': birthday,
+              'age': age
             })
           })
         const data = await response.json()
@@ -30,40 +37,48 @@ async function deleteRapper(){
     }
 }
 
-// async function deleteBirthday(){
-//     const sName = this.parentNode.childNodes[1].innerText
-//     const bName = this.parentNode.childNodes[3].innerText
-//     try{
-//         const response = await fetch('deleteRapper', {
-//             method: 'delete',
-//             headers: {'Content-Type': 'application/json'},
-//             body: JSON.stringify({
-//               'stageNameS': sName,
-//               'birthNameS': bName
-//             })
-//           })
-//         const data = await response.json()
-//         console.log(data)
-//         location.reload()
 
-//     }catch(err){
-//         console.log(err)
-//     }
-// }
+async function updateBirthday(){
+    console.log('updated')
+    // const sName = this.parentNode.childNodes[1].innerText
+    // const bName = this.parentNode.childNodes[3].innerText
+    // const tLikes = Number(this.parentNode.childNodes[5].innerText)
+    // try{
+    //     const response = await fetch('addOneLike', {
+    //         method: 'put',
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({
+    //           'stageNameS': sName,
+    //           'birthNameS': bName,
+    //           'likesS': tLikes
+    //         })
+    //       })
+    //     const data = await response.json()
+    //     console.log(data)
+    //     location.reload()
 
+    // }catch(err){
+    //     console.log(err)
+    // }
+}
 
-async function addLike(){
-    const sName = this.parentNode.childNodes[1].innerText
-    const bName = this.parentNode.childNodes[3].innerText
-    const tLikes = Number(this.parentNode.childNodes[5].innerText)
+// try to make the find birthday work 
+const resultDiv = document.getElementById('result');
+const friendName = document.getElementById('friendName')
+findBirthday.addEventListener('click', findBd)
+
+async function findBd(){
+    console.log('clicked')
+    const name = friendName.vlaue
+    console.log(name)
     try{
-        const response = await fetch('addOneLike', {
-            method: 'put',
-            headers: {'Content-Type': 'application/json'},
+        //fetch to the server to grab the name of who i want to delete
+        //deleteFriend is the rout that is in the server side
+        const response = await fetch(`findBirthday/${name}`, {
+            method: 'get',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: JSON.stringify({
-              'stageNameS': sName,
-              'birthNameS': bName,
-              'likesS': tLikes
+              'friendName': name,
             })
           })
         const data = await response.json()
@@ -74,3 +89,4 @@ async function addLike(){
         console.log(err)
     }
 }
+

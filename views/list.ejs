@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/775c6d76d9.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
 
@@ -15,12 +17,12 @@
     <span>
         <% if (friend.length > 0) { %>
             <% friend.forEach((friend) => { %>
-                <li class="friend" style="list-style-type:none">
-                    <span class='fa fa-thumbs-up'></span>
-                    <span class='fa fa-trash'></span>
-                    <p> Name: <%= friend.friendName %> </p>
-                    <p> DOB: <%= friend.birthday %> </p>
-                    <p> Age: <%= friend.age %> </p>
+                <li style="list-style-type:none">
+                    <i class="fa-solid fa-user-minus"></i>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    <p>Name: <%= friend.friendName %></p>
+                    <p>DOB: <%= friend.birthday %></p>
+                    <p>Age: <%= friend.age %></p>
                     <br>
                 </li>
             <% }); %>
@@ -28,6 +30,6 @@
             <p>No data available</p>
           <% } %>
     </span>
-
+    <script src='/js/main.js'></script>
 </body>
 </html>

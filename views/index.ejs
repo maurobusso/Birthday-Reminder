@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 <body>
@@ -18,6 +17,20 @@
     <title>Document</title>
 </head>
 <body>
+    <nav>
+        <ul style="list-style-type:none" >
+            <li>
+                <form action="/" method="GET">
+                    <button type="submit" id="button">Home</button>
+                </form>
+            </li>
+            <li>
+                <form action="/seeListBirthdays" method="GET">
+                    <button type="submit">See full List</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
     
     <p>Number of birthdays in the database: <%= count %></p>
      
@@ -28,6 +41,9 @@
             <input type="text" id="friendName" name="name">
             <input type="submit">
         </form>
+        <div id="result">
+
+        </div>
     
     </section>
   
@@ -45,6 +61,6 @@
         <input type="submit">
     </form>    
 
-    <script src='/public/js/main.js'></script>
+    <script src='/js/main.js'></script>
 </body>
 </html>
