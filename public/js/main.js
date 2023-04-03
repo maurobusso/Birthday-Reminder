@@ -62,13 +62,17 @@ async function updateBirthday(){
 // try to make the find birthday work 
 const findBirthday = document.getElementById('button')
 const resultDiv = document.getElementById('result')
-const friendName = document.getElementById('friendName').value
 const form = document.querySelector('form')
 
 findBirthday.addEventListener('click', findBd)
-console.log(friendName)
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    findBd();
+  })
 
 async function findBd(){
+    const friendName = document.getElementById('friendName').value
     console.log(friendName)
     // console.log(name)
     try{
