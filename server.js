@@ -95,13 +95,10 @@ app.post('/addBirthday', async(request, response) => {
 //--------------------
 
 app.get('/findBirthday/:name', (request, response) => {
-    const name = request.params.name.toLowerCase()
-
+    // const name = request.params.name
+    // console.log(request.params.name)
     //handle if no input is given
-    if(name == ''){
-        response.status(400).send('insert valid name')
-        return
-    }
+    const name = request.params.name
     // check if name is present in DB
     db.collection('friends').findOne({friendName: name})
     .then(data => {
@@ -139,7 +136,7 @@ app.get('/findBirthday/:name', (request, response) => {
 // delete a birthday 
 
 app.delete('/deleteFriend', (request, response) => {
-    console.log(request)
+    //console.log(request)
     db.collection('friends').deleteOne({friendName: request.body.friendName})
     .then(result => {
         console.log('Friend Deleted')
