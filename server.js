@@ -20,13 +20,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// app.get('/',(request, response)=>{
-//     db.collection('friends').find().sort().toArray()
-//     .then(data => {
-//         response.render('index.ejs', { info: data })
-//     })
-//     .catch(error => console.error(error))
-// })
+checkBirthdays()
 
 app.get('/',(request, response) => {
     db.collection('friends').countDocuments()
@@ -40,6 +34,22 @@ app.get('/',(request, response) => {
       });
     
 })
+
+//check if today is anybody's birthday
+
+// app.get('/',(request, response) => {
+//     const todayDate = new Date().toLocaleDateString()
+//     db.collection('friends').findOne({birthday: todayDate})
+//     .then(data => {
+//         // console.log(data);
+//         response.render('index.ejs', { });
+//       })
+//       .catch(error => {
+//         console.error(error);
+//         response.render('index', { count: null, error: 'Failed to retrieve count' });
+//       });
+    
+// })
 
 //this is to add a friend and a birthday date
 
@@ -114,25 +124,6 @@ app.get('/findBirthday/:name', (request, response) => {
     .catch(error => console.error(error))
 })
 
-
-
-// app.put('/addOneLike', (request, response) => {
-//     db.collection('rappers').updateOne({stageName: request.body.stageNameS, birthName: request.body.birthNameS,likes: request.body.likesS},{
-//         $set: {
-//             likes:request.body.likesS + 1
-//           }
-//     },{
-//         sort: {_id: -1},
-//         upsert: true
-//     })
-//     .then(result => {
-//         console.log('Added One Like')
-//         response.json('Like Added')
-//     })
-//     .catch(error => console.error(error))
-
-// })
-
 // delete a birthday 
 
 app.delete('/deleteFriend', (request, response) => {
@@ -166,3 +157,47 @@ app.get('/seeListBirthdays', (request, response) => {
         res.status(500).send('Error retrieving data from database');
       });
   });
+
+  app.get('/findBirthday/:todaydate', (request, response) => {
+    // const name = request.params.name
+    // console.log(request.params.name)
+    //handle if no input is given
+    const todaydate = request.params.name
+    // check if name is present in DB
+    db.collection('friends').findOne({birthday: todaydate})
+    .then(data => {
+        console.log(data)
+        if (data) {
+            response.send( data )
+            console.log('Birthday found')
+        } else {
+            response.send('No birthday found')
+        }
+    })
+    .catch(error => console.error(error))
+})
+
+//check if today is anybody's birthday
+
+function checkBirthdays() {
+    console.log('hi')
+
+//   client.connect((err) => {
+//     if (err) throw err;
+//     const db = client.db(dbName);
+//     const collection = db.collection('friends');
+//     const today = new Date();
+//     const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+//     const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+//     collection.find({ birthday: { $gte: startOfToday, $lt: endOfToday } }).toArray((err, results) => {
+//       if (err) throw err;
+//       if (results.length > 0) {
+//         console.log('Today is the birthday of:', results.map(r => r.name).join(', '));
+//         // Replace this console.log statement with your own alert or notification code
+//       } else {
+//         console.log('No birthdays today.');
+//       }
+//       client.close();
+//     });
+//   });
+}

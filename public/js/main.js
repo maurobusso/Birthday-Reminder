@@ -59,29 +59,37 @@ async function updateBirthday(){
     // }
 }
 
-// try to make the find birthday work 
-const findBirthday = document.getElementById('button')
-const resultDiv = document.getElementById('result')
-const form = document.querySelector('form')
+// find birthday by name
 
-findBirthday.addEventListener('click', findBd)
+const resultDiv = document.getElementById('result')
+const form = document.getElementById('form')
+const button = document.getElementById('button')
+button.addEventListener('click', findBd)
 
 form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    findBd();
-  })
+        event.preventDefault();
+        findBd();
+      })
 
 async function findBd(){
-    const friendName = document.getElementById('friendName').value
-    console.log(friendName)
-    // console.log(name)
+    const friendName = document.getElementById('friendName').value.toLowerCase().trim()
+
+    if (friendName.trim() === '') {
+        // The input field is empty or contains only whitespace
+        resultDiv.innerText = 'Please enter a name';
+        return;
+    }
+
     try{
         //fetch to the server to grab the name of who i want to delete
         //deleteFriend is the rout that is in the server side
         const response = await fetch(`/findBirthday/${friendName}`)
         const data = await response.json()
         if (data) {
-            resultDiv.innerText = data.birthday;
+            resultDiv.innerText = `Name: ${data.friendName}
+                                   Birthday: ${data.birthday}
+                                   Age: ${data.age} `
+
             console.log('Birthday found');
         } else {
             resultDiv.innerText = 'No birthday found';
@@ -91,3 +99,25 @@ async function findBd(){
     }
 }
 
+// grab today date
+
+async function checkTodayDate(){
+    const todayDate = new Date().toLocaleDateString()
+    console.log(todayDate)
+
+    // try{
+    //     const response = await fetch(`/findBirthday/${todayDate}`)
+    //     const data = await response.json()
+    //     if (data) {
+    //         resultDiv.innerText = `Name: ${data.friendName}
+    //                                Birthday: ${data.birthday}
+    //                                Age: ${data.age} `
+
+    //         console.log('Birthday found');
+    //     } else {
+    //         resultDiv.innerText = 'No birthday found';
+    //     }
+    // }catch(err){
+    //     console.log(err)
+    // }
+}

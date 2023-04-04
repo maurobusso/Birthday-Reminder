@@ -21,6 +21,11 @@
         <ul style="list-style-type:none" >
             <li>
                 <form action="/" method="GET">
+                    <button type="submit">Log in</button>
+                </form>
+            </li>
+            <li>
+                <form action="/" method="GET">
                     <button type="submit" id="button">Home</button>
                 </form>
             </li>
@@ -37,7 +42,7 @@
     <section>
         <h1>Find a birthday</h1>
 
-        <form action="/findBirthday/name" method="GET">
+        <form action="/findBirthday/name" method="GET" id="form">
             <input type="text" id="friendName" name="name">
             <button type="submit" id="button">submit</button>
         </form>
