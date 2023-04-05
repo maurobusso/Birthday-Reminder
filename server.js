@@ -20,8 +20,6 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-checkBirthdays()
-
 app.get('/',(request, response) => {
     db.collection('friends').countDocuments()
     .then(count => {
@@ -34,22 +32,6 @@ app.get('/',(request, response) => {
       });
     
 })
-
-//check if today is anybody's birthday
-
-// app.get('/',(request, response) => {
-//     const todayDate = new Date().toLocaleDateString()
-//     db.collection('friends').findOne({birthday: todayDate})
-//     .then(data => {
-//         // console.log(data);
-//         response.render('index.ejs', { });
-//       })
-//       .catch(error => {
-//         console.error(error);
-//         response.render('index', { count: null, error: 'Failed to retrieve count' });
-//       });
-    
-// })
 
 //this is to add a friend and a birthday date
 
@@ -102,7 +84,7 @@ app.post('/addBirthday', async(request, response) => {
     .catch(error => console.error(error))
 })
 
-//--------------------
+// find a birthday by name 
 
 app.get('/findBirthday/:name', (request, response) => {
     // const name = request.params.name
@@ -179,25 +161,20 @@ app.get('/seeListBirthdays', (request, response) => {
 
 //check if today is anybody's birthday
 
-function checkBirthdays() {
-    console.log('hi')
+app.get('/', (request, response) => {
+    const today = new Date();
+    const todayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+    const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)
 
-//   client.connect((err) => {
-//     if (err) throw err;
-//     const db = client.db(dbName);
-//     const collection = db.collection('friends');
-//     const today = new Date();
-//     const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-//     const endOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//     collection.find({ birthday: { $gte: startOfToday, $lt: endOfToday } }).toArray((err, results) => {
-//       if (err) throw err;
-//       if (results.length > 0) {
-//         console.log('Today is the birthday of:', results.map(r => r.name).join(', '));
-//         // Replace this console.log statement with your own alert or notification code
-//       } else {
-//         console.log('No birthdays today.');
-//       }
-//       client.close();
-//     });
-//   });
-}
+    db.collection('friends').find({birthday: { $gte: todayDate, $lt: endOfToday } }).toArray((err, results) => {
+        if (err) throw err;
+        if (results.length > 0) {
+          console.log('Today is the birthday of:', results.map(r => r.name).join(', '));
+          response.send(`Today is the birthday of: ${results.map(r => r.name).join(', ')}`);
+        } else {
+          console.log('No birthdays today.');
+          response.send('No birthdays today.');
+        }
+        client.close();
+      })
+})

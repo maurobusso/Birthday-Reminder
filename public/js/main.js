@@ -101,23 +101,23 @@ async function findBd(){
 
 // grab today date
 
-async function checkTodayDate(){
-    const todayDate = new Date().toLocaleDateString()
-    console.log(todayDate)
+// async function checkTodayDate(){
+//     const todayDate = new Date().toLocaleDateString()
+//     console.log(todayDate)
 
-    // try{
-    //     const response = await fetch(`/findBirthday/${todayDate}`)
-    //     const data = await response.json()
-    //     if (data) {
-    //         resultDiv.innerText = `Name: ${data.friendName}
-    //                                Birthday: ${data.birthday}
-    //                                Age: ${data.age} `
+//     try{
+//         const response = await fetch(`/findBirthday/${todayDate}`)
+//         const data = await response.json()
+//         if (data) {
+//             resultDiv.innerText = `Name: ${data.friendName}
+//                                    Birthday: ${data.birthday}
+//                                    Age: ${data.age} `
 
-    //         console.log('Birthday found');
-    //     } else {
-    //         resultDiv.innerText = 'No birthday found';
-    //     }
-    // }catch(err){
-    //     console.log(err)
-    // }
-}
+//             console.log('Birthday found');
+//         } else {
+//             resultDiv.innerText = 'No birthday found';
+//         }
+//     }catch(err){
+//         console.log(err)
+//     }
+// }
