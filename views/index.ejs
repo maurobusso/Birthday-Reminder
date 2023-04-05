@@ -38,28 +38,37 @@
     </nav>
     
     <p>Number of birthdays in the database: <%= count %></p>
+
+    <h1>birthday reminder</h1>
+    <span>
+        <% if (birthdays.length > 0) { %>
+            <h3>Today is the birthday of:</h3>
+            <ul style="list-style-type:none">
+                <% birthdays.forEach(function(birthdays) { %>
+                    <li><%= birthdays.friendName %> <%= birthdays.friendSurname %> - <%= birthdays.age %> years old</li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <h3>You haven't forgot any birthdays today.</h3>
+        <% } %>
+    </span>
      
     <section>
         <h1>Find a birthday</h1>
 
         <form action="/findBirthday/name" method="GET" id="form">
-            <input type="text" id="friendName" name="name">
+            <input type="text" id="friendName" name="name" placeholder="Name">
+            <input type="text" id="friendSurname" name="surname" placeholder="Surname">
             <button type="submit" id="button">submit</button>
         </form>
         <div id="result"></div>
     
     </section>
-  
-        
-
-    <h1>List of birthdays</h1>
-    <form action="/seeListBirthdays" method="GET">
-        <button type="submit">See full List</button>
-    </form>
 
     <h2>Add A Birthday:</h2>
     <form action="/addBirthday" method="POST">
         <input type="text" placeholder="Name" name="friendName">
+        <input type="text" placeholder="Surname" name="friendSurname">
         <input type="date" placeholder="Birthday" name="birthday">
         <input type="submit">
     </form>    

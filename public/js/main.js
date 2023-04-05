@@ -59,6 +59,7 @@ async function updateBirthday(){
     // }
 }
 
+
 // find birthday by name
 
 const resultDiv = document.getElementById('result')
@@ -73,20 +74,24 @@ form.addEventListener('submit', (event) => {
 
 async function findBd(){
     const friendName = document.getElementById('friendName').value.toLowerCase().trim()
+    const friendSurname = document.getElementById('friendSurname').value.toLowerCase().trim()
 
-    if (friendName.trim() === '') {
+    if (friendName === '' && friendSurname === '') {
         // The input field is empty or contains only whitespace
         resultDiv.innerText = 'Please enter a name';
         return;
     }
-
+    
     try{
         //fetch to the server to grab the name of who i want to delete
         //deleteFriend is the rout that is in the server side
-        const response = await fetch(`/findBirthday/${friendName}`)
+        const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
+        
         const data = await response.json()
+        console.log(data)
         if (data) {
             resultDiv.innerText = `Name: ${data.friendName}
+                                   Surname: ${data.friendSurname} 
                                    Birthday: ${data.birthday}
                                    Age: ${data.age} `
 
@@ -98,26 +103,3 @@ async function findBd(){
         console.log(err)
     }
 }
-
-// grab today date
-
-// async function checkTodayDate(){
-//     const todayDate = new Date().toLocaleDateString()
-//     console.log(todayDate)
-
-//     try{
-//         const response = await fetch(`/findBirthday/${todayDate}`)
-//         const data = await response.json()
-//         if (data) {
-//             resultDiv.innerText = `Name: ${data.friendName}
-//                                    Birthday: ${data.birthday}
-//                                    Age: ${data.age} `
-
-//             console.log('Birthday found');
-//         } else {
-//             resultDiv.innerText = 'No birthday found';
-//         }
-//     }catch(err){
-//         console.log(err)
-//     }
-// }
