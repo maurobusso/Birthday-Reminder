@@ -35,44 +35,32 @@ async function deleteBirthday(){
 }
 
 
+//update existing birthdays
+
 async function updateBirthday(){
     console.log('updated')
-    // const sName = this.parentNode.childNodes[1].innerText
-    // const bName = this.parentNode.childNodes[3].innerText
-    // const tLikes = Number(this.parentNode.childNodes[5].innerText)
-    // try{
-    //     const response = await fetch('addOneLike', {
-    //         method: 'put',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({
-    //           'stageNameS': sName,
-    //           'birthNameS': bName,
-    //           'likesS': tLikes
-    //         })
-    //       })
-    //     const data = await response.json()
-    //     console.log(data)
-    //     location.reload()
+    try{
+    const response = await fetch('updateBirthday')
 
-    // }catch(err){
-    //     console.log(err)
-    // }
+    }catch(err){
+        console.log(err)
+    }
 }
 
 
 // find birthday by name
 
-const resultDiv = document.getElementById('result')
 const form = document.getElementById('form')
-const button = document.getElementById('button')
-button.addEventListener('click', findBd)
+const resultDiv = document.getElementById('result')
+const findBd = document.getElementById('findBd-btn')
+findBd.addEventListener('click', findFriend)
 
 form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        findBd();
-      })
+    event.preventDefault();
+    findBd();
+})
 
-async function findBd(){
+async function findFriend(){
     const friendName = document.getElementById('friendName').value.toLowerCase().trim()
     const friendSurname = document.getElementById('friendSurname').value.toLowerCase().trim()
 

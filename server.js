@@ -172,8 +172,25 @@ app.get('/seeListBirthdays', (request, response) => {
 });
 
 
+//update existing birthdays
+
+app.post('/seeListBirthdays/updateBirthday', async(request, response) => {
+
+        response.render('updatedBd.ejs', {friend: data})
+    
+})
+
+
+
 //listen on port ...
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
+
+
+//to fix
+// when inserting a name and the wrog surname it still find the person with the same name 
+//sometimes button value is null in main.js
+//make the update path
+//
