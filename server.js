@@ -72,7 +72,7 @@ app.post('/addBirthday', async(request, response) => {
     
     //handles if there is no name or date
     if( friendName === '' || friendSurname === '' || birthday === '' ){
-        response.status(400).send('insert valid inputs')
+        //response.status(400).send('insert valid inputs')
         return
     }
 

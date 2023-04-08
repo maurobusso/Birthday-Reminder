@@ -63,7 +63,7 @@ async function findFriend(){
     const friendName = document.getElementById('friendName').value.toLowerCase().trim()
     const friendSurname = document.getElementById('friendSurname').value.toLowerCase().trim()
 
-    if (friendName === '' || friendSurname === '') {
+    if (friendName === '' && friendSurname === '') {
         // The input field is empty or contains only whitespace
         resultDiv.innerText = 'Please enter a valid name'
         return
