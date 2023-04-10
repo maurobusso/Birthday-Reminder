@@ -71,16 +71,15 @@ app.post('/addBirthday', async(request, response) => {
     //const existingFriends = await db.collection('friends').findOne({ $and: [ { friendName: { $exists: true } }, { friendSurname: { $exists: true } }, { friendName: friendName }, { friendSurname: friendSurname } ] })
     
     //handles if there is no name or date
-    // if( friendName === '' || friendSurname === '' || birthday === NaN ){
-    //     response.status(400).send('insert valid inputs')
-    //     return
-    // }
+    if( friendName === '' || friendSurname === '' || birthday === '' ){
+        response.status(400).send('insert valid inputs')
+        return
+    }
 
     //handle if the name is alredy in the database
-
     if( existingFriends !== null ){
         response.status(400).send('someone with that name already exist')
-    
+        return
     }else{
 
     // this function will calculate the age of a person
