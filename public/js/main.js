@@ -62,11 +62,37 @@ form.addEventListener('submit', (event) => {
 async function findFriend(){
     const friendName = document.getElementById('friendName').value.toLowerCase().trim()
     const friendSurname = document.getElementById('friendSurname').value.toLowerCase().trim()
-
+    
+    //handle if no input are present
     if (friendName === '' && friendSurname === '') {
         // The input field is empty or contains only whitespace
         resultDiv.innerText = 'Please enter a valid name'
         return
+    }
+
+    //handle if only name is present
+    if( friendName && friendSurname === ''){
+        try{
+            const response = await fetch(`/findBirthday/${friendName}/${friendSurname}`)
+
+            //this makes sure the response always
+        const data = await response.json()
+        console.log(data)
+
+        if ( data ) {
+            resultDiv.innerText = ` Name: ${data.friendName}
+                                    Surname: ${data.friendSurname} 
+                                    Birthday: ${data.birthday}
+                                    Age: ${data.age} `
+            
+            console.log('Birthday found')
+        } else {
+            resultDiv.innerText = stringify(new String('No birthday Found'))
+        }
+        }catch(err){
+            console.log(err)
+        }
+        
     }
     
     try{
