@@ -51,7 +51,7 @@ async function checkBirthdays(db) {
 
     if (result.length > 0) {
         console.log('Today is the birthday of:', result.map(r => r.friendName).join(' , '))
-        // Replace this console.log statement with your own alert or notification code
+        // Replace console.log with your own alert code
     } else {
         console.log('No birthdays today.')
     }
@@ -73,7 +73,8 @@ app.post('/addBirthday', async(request, response) => {
     //handles if there is no name or date
     if( friendName === '' || friendSurname === '' || birthday === '' ){
         //response.status(400).send('insert valid inputs')
-        return
+        response.redirect('/')
+        return 
     }
 
     //handle if the name is alredy in the database

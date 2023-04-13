@@ -1,4 +1,8 @@
-h1{
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* h1{
     color: red;
 }
 
@@ -17,4 +21,4 @@ nav li {
     margin-right: 20px;
     color: white;
     text-decoration: none;
-}
+} */

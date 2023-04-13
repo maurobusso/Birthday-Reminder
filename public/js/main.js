@@ -52,8 +52,7 @@ async function updateBirthday(){
 
 const form = document.getElementById('form')
 const resultDiv = document.getElementById('result')
-const findBd = document.getElementById('findBd-btn')
-findBd.addEventListener('click', findFriend)
+const findBd = document.getElementById('findBd-btn').addEventListener('click', findFriend)
 
 form.addEventListener('submit', (event) => {
     event.preventDefault()
