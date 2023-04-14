@@ -16,28 +16,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body class="">
     <nav>
         <ul style="list-style-type:none" class="flex">
             <li>
                 <form action="/" method="GET">
-                    <button type="submit" id="log-in-btn" class="">Log in</button>
+                    <button type="submit" id="log-in-btn" class="border-2 border-black m-4 p-2 rounded">Log in</button>
                 </form>
             </li>
             <li>
                 <form action="/" method="GET">
-                    <button type="submit" id="home-btn" class="border-1">Home</button>
+                    <button type="submit" id="home-btn" class="border-2 border-black m-4 p-2 rounded">Home</button>
                 </form>
             </li>
             <li>
                 <form action="/seeListBirthdays" method="GET">
-                    <button type="submit" class="border-1">See full List</button>
+                    <button type="submit" class="border-2 border-black m-4 p-2 rounded">See full List</button>
                 </form>
             </li>
         </ul>
     </nav>
     
-    <p class="text-3xl font-bold underline">Number of birthdays in the database: <%= count %></p>
+    <p class="">Number of birthdays in the database: <%= count %></p>
 
     <h1>birthday reminder</h1>
     <span>
