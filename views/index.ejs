@@ -56,21 +56,20 @@
     <section>
         <h1>Find a birthday</h1>
         <form action="/findBirthday" method="GET" id="form">
-            <input type="text" id="friendName" name="name" placeholder="Name">
-            <input type="text" id="friendSurname" name="surname" placeholder="Surname">
-            <button type="submit" id="findBd-btn">submit</button>
+            <input type="text" id="friendName" name="name" placeholder="Name" class="border-2 border-black m-4 p-2 rounded">
+            <input type="text" id="friendSurname" name="surname" placeholder="Surname" class="border-2 border-black m-4 p-2 rounded">
+            <button type="submit" id="findBd-btn" class="border-2 border-black m-4 p-2 rounded">submit</button>
         </form>
         <div id="result"></div>
     </section>
 
     <section>
         <h2>Add A Birthday:</h2>
-        
         <form action="/addBirthday" method="POST">
-            <input type="text" placeholder="Name" name="friendName" id="addName">
-            <input type="text" placeholder="Surname" name="friendSurname" id="addSurname">
-            <input type="date" placeholder="Birthday" name="birthday" id="dateBd">
-            <button type="submit" id="add-btn">submit</button>
+            <input type="text" placeholder="Name" name="friendName" id="addName" class="border-2 border-black m-4 p-2 rounded">
+            <input type="text" placeholder="Surname" name="friendSurname" id="addSurname" class="border-2 border-black m-4 p-2 rounded">
+            <input type="date" placeholder="Birthday" name="birthday" id="dateBd" class="border-2 border-black m-4 p-2 rounded">
+            <button type="submit" id="add-btn" class="border-2 border-black m-4 p-2 rounded">submit</button>
         </form> 
         <div id="inputError"></div>   
     </section>
