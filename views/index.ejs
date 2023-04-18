@@ -16,22 +16,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body class="">
-    <nav>
-        <ul style="list-style-type:none" class="flex">
+<body class="bg-yellow-300">
+    <nav class="flex items-center justify-between">
+        <ul style="list-style-type:none" class="flex items-center space-x-10">
             <li>
                 <form action="/" method="GET">
-                    <button type="submit" id="log-in-btn" class="border-2 border-black m-4 p-2 rounded">Log in</button>
+                    <button type="submit" id="log-in-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">Log in</button>
                 </form>
             </li>
             <li>
                 <form action="/" method="GET">
-                    <button type="submit" id="home-btn" class="border-2 border-black m-4 p-2 rounded">Home</button>
+                    <button type="submit" id="home-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">Home</button>
                 </form>
             </li>
             <li>
                 <form action="/seeListBirthdays" method="GET">
-                    <button type="submit" class="border-2 border-black m-4 p-2 rounded">See full List</button>
+                    <button type="submit" class="border-2 border-black m-4 p-2 rounded bg-red-500">See full List</button>
                 </form>
             </li>
         </ul>
@@ -39,7 +39,7 @@
     
     <p class="">Number of birthdays in the database: <%= count %></p>
 
-    <h1 class="text-red-500 text-6xl font-bold">Birthday Reminder</h1>
+    <h1 class="text-red-500 text-6xl font-bold m-8 ">Birthday Reminder</h1>
     <span>
         <% if (birthdays.length > 0) { %>
             <h3>Today is the birthday of:</h3>
@@ -58,7 +58,7 @@
         <form action="/findBirthday" method="GET" id="form">
             <input type="text" id="friendName" name="name" placeholder="Name" class="border-2 border-black m-4 p-2 rounded">
             <input type="text" id="friendSurname" name="surname" placeholder="Surname" class="border-2 border-black m-4 p-2 rounded">
-            <button type="submit" id="findBd-btn" class="border-2 border-black m-4 p-2 rounded">submit</button>
+            <button type="submit" id="findBd-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">submit</button>
         </form>
         <div id="result"></div>
     </section>
@@ -69,7 +69,7 @@
             <input type="text" placeholder="Name" name="friendName" id="addName" class="border-2 border-black m-4 p-2 rounded">
             <input type="text" placeholder="Surname" name="friendSurname" id="addSurname" class="border-2 border-black m-4 p-2 rounded">
             <input type="date" placeholder="Birthday" name="birthday" id="dateBd" class="border-2 border-black m-4 p-2 rounded">
-            <button type="submit" id="add-btn" class="border-2 border-black m-4 p-2 rounded">submit</button>
+            <button type="submit" id="add-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">submit</button>
         </form> 
         <div id="inputError"></div>   
     </section>
