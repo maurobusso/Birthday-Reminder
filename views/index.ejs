@@ -17,10 +17,10 @@
     <title>Document</title>
 </head>
 <body class="bg-yellow-300">
-    <nav class="flex items-center justify-between">
+    <nav class="flex justify-between">
         <ul style="list-style-type:none" class="flex items-center space-x-10">
             <li>
-                <form action="/" method="GET">
+                <form action="/" method="GET" >
                     <button type="submit" id="log-in-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">Log in</button>
                 </form>
             </li>
@@ -35,9 +35,9 @@
                 </form>
             </li>
         </ul>
+        <p class="m-4">N of birthdays saved: <%= count %></p>
     </nav>
     
-    <p class="">Number of birthdays in the database: <%= count %></p>
 
     <h1 class="text-red-500 text-6xl font-bold m-8 ">Birthday Reminder</h1>
     <span>
@@ -45,11 +45,11 @@
             <h3>Today is the birthday of:</h3>
             <ul style="list-style-type:none">
                 <% birthdays.forEach(function(birthdays) { %>
-                    <li><%= birthdays.friendName %> <%= birthdays.friendSurname %> - <%= birthdays.age %> years old</li>
+                    <li class="mb-2"><%= birthdays.friendName %> <%= birthdays.friendSurname %> - <%= birthdays.age %> years old</li>
                 <% }) %>
             </ul>
         <% } else { %>
-            <h3>You haven't forgot any birthdays today.</h3>
+            <h3 class="m-2">You haven't forgot any birthdays today.</h3>
         <% } %>
     </span>
      
