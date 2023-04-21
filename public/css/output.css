@@ -482,6 +482,15 @@ video {
 .m-8 {
   margin: 2rem;
 }
+.m-16 {
+  margin: 4rem;
+}
+.m-12 {
+  margin: 3rem;
+}
+.m-14 {
+  margin: 3.5rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
