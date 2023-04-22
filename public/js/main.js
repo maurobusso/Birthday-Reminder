@@ -107,5 +107,4 @@ async function addBd() {
         // The input field is empty or contains only whitespace
         inputErrorDiv.innerText = 'Please enter a valid Name/Date'
     }
-
 }

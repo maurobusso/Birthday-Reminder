@@ -21,15 +21,15 @@
     <span class="text-red-500">
         <% if (friend.length > 0) { %>
             <% friend.forEach((friend) => { %>
-                <li style="list-style-type:none" class="m-2 p-2">
+                <li style="list-style-type:none" class="m-2 p-2 border-2 border-red-500">
                     <header class="flex">
-                        <p class="text-2xl font-bold underline">Name: <%= friend.friendName %></p>
-                        <i class="fa-solid fa-user-minus p-1 m-2 border-2 border-red-500" ></i>
-                        <i class="fa-solid fa-pen-to-square p-1 m-2 border-2 border-red-500"></i>            
+                        <p class="text-1xl font-bold">Name: <%= friend.friendName %></p>
+                        <i class="fa-solid fa-user-minus p-1 mx-2 border-2 border-red-500 bg-yellow-400" ></i>
+                        <i class="fa-solid fa-pen-to-square p-1 mx-2 border-2 border-red-500 bg-yellow-400"></i>            
                     </header>
-                    <p>Surname: <%= friend.friendSurname %></p>
-                    <p>DOB: <%= friend.birthday %></p>
-                    <p>Age: <%= friend.age %></p>
+                    <p class="text-1xl font-bold">Surname: <%= friend.friendSurname %></p>
+                    <p class="text-1xl font-bold">DOB: <%= friend.birthday %></p>
+                    <p class="text-1xl font-bold">Age: <%= friend.age %></p>
                 </li>
             <% }); %>
           <% } else { %>
