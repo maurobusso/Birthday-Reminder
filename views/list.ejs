@@ -21,9 +21,9 @@
     <span class="text-red-500">
         <% if (friend.length > 0) { %>
             <% friend.forEach((friend) => { %>
-                <li style="list-style-type:none" class="m-2 p-2 border-2 border-red-500">
-                    <header class="flex">
-                        <p class="text-1xl font-bold">Name: <%= friend.friendName %></p>
+                <li style="list-style-type:none" class="m-2 p-2 border-2 border-red-500 w-auto">
+                    <header class="flex justify-end">
+                        <p class="text-1xl font-bold ">Name: <%= friend.friendName %></p>
                         <i class="fa-solid fa-user-minus p-1 mx-2 border-2 border-red-500 bg-yellow-400" ></i>
                         <i class="fa-solid fa-pen-to-square p-1 mx-2 border-2 border-red-500 bg-yellow-400"></i>            
                     </header>
