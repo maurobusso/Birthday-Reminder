@@ -9,10 +9,12 @@ Array.from(updateText).forEach((element)=>{
     element.addEventListener('click', updateBirthday)
 })
 
+//fix delete method
 async function deleteBirthday(){
     const friendName = this.parentNode.childNodes[5].innerText.slice(6)
     const birthday = this.parentNode.childNodes[7].innerText.slice(5)
     const age = this.parentNode.childNodes[9].innerText.slice(5)
+    console.log(age)
     try{
         //fetch to the server to grab the name of who i want to delete
         //deleteFriend is the rout that is in the server side
@@ -28,7 +30,6 @@ async function deleteBirthday(){
         const data = await response.json()
         console.log(data)
         location.reload()
-
     }catch(err){
         console.log(err)
     }
