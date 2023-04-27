@@ -223,7 +223,6 @@ app.delete('/deleteFriend', (request, response) => {
         response.json('Friend Deleted')
     })
     .catch(error => console.error(error))
-
 })
 
 
@@ -237,9 +236,9 @@ app.get('/seeListBirthdays', (request, response) => {
     })
     .catch(err => {
         console.error(err);
-        res.status(500).send('Error retrieving data from database');
-    });
-});
+        res.status(500).send('Error retrieving data from database')
+    })
+})
 
 
 //update existing birthdays
@@ -247,7 +246,6 @@ app.get('/seeListBirthdays', (request, response) => {
 app.post('/updateBirthday', async(request, response) => {
 //might need the id of the document 
     response.send('updatedBd.ejs')
-        
 })
 
 
