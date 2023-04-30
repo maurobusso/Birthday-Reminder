@@ -12,7 +12,7 @@ Array.from(updateText).forEach((element)=>{
 //fix delete
 async function deleteBirthday(){
     const friendName = this.parentNode.childNodes[5].innerText.slice(6)
-    const birthday = this.parentNode.childNodes[8].innerText.slice(5)
+    const birthday = this.parentNode.childNodes[6].innerText.slice(5)
     const age = this.parentNode.childNodes[9].innerText.slice(5)
     try{
         //fetch to the server to grab the name of who i want to delete
@@ -22,7 +22,7 @@ async function deleteBirthday(){
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
               'friendName': friendName,
-            //   'birthday': birthday,
+               'birthday': birthday,
             //   'age': age
             })
           })
