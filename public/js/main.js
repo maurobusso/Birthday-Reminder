@@ -9,11 +9,12 @@ Array.from(updateText).forEach((element)=>{
     element.addEventListener('click', updateBirthday)
 })
 
-//fix delete
+//fix delete because html has changed 
 async function deleteBirthday(){
-    const friendName = this.parentNode.childNodes[5].innerText.slice(6)
-    const birthday = this.parentNode.childNodes[6].innerText.slice(5)
-    const age = this.parentNode.childNodes[9].innerText.slice(5)
+    const friendName = this.parentNode.childNodes[1].textContent
+    const surname = this.parentNode.childNodes[3].textContent
+    const birthday = this.parentNode.childNodes[5].textContent
+    //const age = this.parentNode.childNodes[7].textContent
     try{
         //fetch to the server to grab the name of who i want to delete
         //deleteFriend is the rout that is in the server side
@@ -21,9 +22,10 @@ async function deleteBirthday(){
             method: 'delete',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-              'friendName': friendName,
-               'birthday': birthday,
-            //   'age': age
+                'friendName': friendName,
+                'friendSurname': surname,
+                'birthday': birthday,
+                //'age': age
             })
           })
         const data = await response.json()

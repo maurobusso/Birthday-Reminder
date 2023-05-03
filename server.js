@@ -217,7 +217,12 @@ app.get('/findBirthday//:surname?', (request, response) => {
 
 app.delete('/deleteFriend', (request, response) => {
     //console.log(request)
-    db.collection('friends').deleteOne({friendName: request.body.friendName})
+    db.collection('friends').deleteOne({
+        friendName: request.body.friendName,
+        friendSurname: request.body.friendSurname,
+        birthday: request.body.birthday,
+        //age: request.body.age
+    })
     .then(result => {
         console.log('Friend Deleted')
         response.json('Friend Deleted')
