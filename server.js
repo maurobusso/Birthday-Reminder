@@ -219,9 +219,9 @@ app.delete('/deleteFriend', (request, response) => {
     //console.log(request)
     db.collection('friends').deleteOne({
         friendName: request.body.friendName,
-        friendSurname: request.body.friendSurname,
-        birthday: request.body.birthday,
-        //age: request.body.age
+        // friendSurname: request.body.friendSurname,
+        // birthday: request.body.birthday,
+        // age: request.body.age
     })
     .then(result => {
         console.log('Friend Deleted')

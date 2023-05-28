@@ -17,25 +17,32 @@
             <button type="submit" class="border-2 border-black m-4 p-2 rounded bg-red-500">Log in</button>
         </form>
     </ul>
-
-    <span class="text-red-500">
-        <% if (friend.length > 0) { %>
-            <% friend.forEach((friend) => { %>
-                <li style="list-style-type:none" class="m-2 p-2 border-2 border-red-500 w-auto">
-                    <header class="flex justify-end">
-                        <p class="text-1xl font-bold ">Name: <%= friend.friendName %></p>
-                        <i class="fa-solid fa-user-minus p-1 mx-2 border-2 border-red-500 bg-yellow-400" ></i>
-                        <i class="fa-solid fa-pen-to-square p-1 mx-2 border-2 border-red-500 bg-yellow-400"></i>            
-                    </header>
-                    <p class="text-1xl font-bold">Surname: <%= friend.friendSurname %></p>
-                    <p class="text-1xl font-bold">DOB: <%= friend.birthday %></p>
-                    <p class="text-1xl font-bold">Age: <%= friend.age %></p>
+    <div class="flex justify-center items-center">
+        <ul class="text-red-500 w-56 md:w-72">
+            <% if (friend.length > 0) { %>
+                <% friend.forEach((friend) => { %>
+                    <li style="list-style-type:none" class="m-2 p-2 border-2 border-red-500">
+                        <header class="flex justify-end">
+                            <i class="fa-solid fa-user-minus p-1 mx-2 border-2 border-red-500 bg-yellow-400" ></i>
+                            <i class="fa-solid fa-pen-to-square p-1 mx-2 border-2 border-red-500 bg-yellow-400"></i>            
+                        </header>
+                        <!-- <p class="friend-name text-1xl font-bold">Name: <p class="age text-1xl font-bold mb-2"><%= friend.friendName %></p></p>
+                        <p class="surname text-1xl font-bold">Surname: <p class="birthday text-1xl font-bold mb-2"><%= friend.friendSurname %></p></p>
+                        <p class="birthday text-1xl font-bold">DOB: <p class="birthday text-1xl font-bold mb-2"><%= friend.birthday %></p></p>
+                        <p class="age text-1xl font-bold">Age: <p class="age text-1xl font-bold"><%= friend.age %></p></p>        -->
+                        <p class="friend-name text-1xl font-bold"><%= friend.friendName %></p>
+                        <p class="surname text-1xl font-bold"><%= friend.friendSurname %></p>
+                        <p class="birthday text-1xl font-bold"><%= friend.birthday %></p>
+                        <p class="age text-1xl font-bold"><%= friend.age %></p>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li class="m-2 p-2 border-2 border-red-500">
+                    <p>No data available</p>
                 </li>
-            <% }); %>
-          <% } else { %>
-            <p>No data available</p>
-          <% } %>
-    </span>
-    <script src='/js/main.js'></script>
+            <% } %>
+        </ul>
+    </div>
+<script src='/js/main.js'></script>
 </body>
 </html>
