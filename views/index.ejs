@@ -17,8 +17,9 @@
     <title>Document</title>
 </head>
 <body class="bg-orange-300">
+
     <nav class="bg-orange-500">
-        <ul style="list-style-type:none" class="flex">
+        <ul style="list-style-type:none" class="flex flex-row">
             <li> 
                 <form action="/" method="GET">
                     <button type="submit" id="log-in-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500 font-bold">Log in</button>
@@ -34,45 +35,48 @@
                     <button type="submit" class="border-2 border-black m-4 p-2 rounded bg-red-500 font-bold">See full List</button>
                 </form>
             </li>
-            <p class="m-4 font-bold">N of birthdays saved: <%= count %></p>
+            <li class="">
+                <p class="font-bold">N of birthdays saved: <%= count %></p>
+            </li>
         </ul>
     </nav>
+
+    <div class="">
+        <h1 class="text-red-500 text-6xl font-bold m-14 flex justify-center">Birthday Reminder</h1>
+        <span class="flex justify-center m-10">
+            <% if (birthdays.length > 0) { %>
+                <h3>Today is the birthday of:</h3>
+                <ul style="list-style-type:none">
+                    <% birthdays.forEach(function(birthdays) { %>
+                        <li class="mb-2"><%= birthdays.friendName %> <%= birthdays.friendSurname %> - <%= birthdays.age %> years old</li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <h3 class="m-2 font-bold">You haven't forgot any birthdays today.</h3>
+            <% } %>
+        </span>
+         
+        <section class="flex justify-center p-10">
+            <h1 class="flex m-3 font-bold">Find a birthday</h1>
+            <form action="/findBirthday" method="GET" id="form">
+                <input type="text" id="friendName" name="name" placeholder="Name" class="border-2 border-black m-4 p-2 rounded">
+                <input type="text" id="friendSurname" name="surname" placeholder="Surname" class="border-2 border-black m-4 p-2 rounded">
+                <button type="submit" id="findBd-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">submit</button>
+            </form>
+        </section>
+        <div id="result" class="flex justify-center"></div>
     
-
-    <h1 class="text-red-500 text-6xl font-bold m-14 ">Birthday Reminder</h1>
-    <span>
-        <% if (birthdays.length > 0) { %>
-            <h3>Today is the birthday of:</h3>
-            <ul style="list-style-type:none">
-                <% birthdays.forEach(function(birthdays) { %>
-                    <li class="mb-2"><%= birthdays.friendName %> <%= birthdays.friendSurname %> - <%= birthdays.age %> years old</li>
-                <% }) %>
-            </ul>
-        <% } else { %>
-            <h3 class="m-2 font-bold">You haven't forgot any birthdays today.</h3>
-        <% } %>
-    </span>
-     
-    <section>
-        <h1 class="flex m-3 font-bold">Find a birthday</h1>
-        <form action="/findBirthday" method="GET" id="form">
-            <input type="text" id="friendName" name="name" placeholder="Name" class="border-2 border-black m-4 p-2 rounded">
-            <input type="text" id="friendSurname" name="surname" placeholder="Surname" class="border-2 border-black m-4 p-2 rounded">
-            <button type="submit" id="findBd-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">submit</button>
-        </form>
-        <div id="result"></div>
-    </section>
-
-    <section>
-        <h2 class="flex m-3 font-bold">Add A Birthday:</h2>
-        <form action="/addBirthday" method="POST">
-            <input type="text" placeholder="Name" name="friendName" id="addName" class="border-2 border-black m-4 p-2 rounded">
-            <input type="text" placeholder="Surname" name="friendSurname" id="addSurname" class="border-2 border-black m-4 p-2 rounded">
-            <input type="date" placeholder="Birthday" name="birthday" id="dateBd" class="border-2 border-black m-4 p-2 rounded">
-            <button type="submit" id="add-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">submit</button>
-        </form> 
-        <div id="inputError"></div>   
-    </section>
+        <section class="flex justify-center p-10">
+            <h2 class="flex m-3 font-bold">Add A Birthday:</h2>
+            <form action="/addBirthday" method="POST">
+                <input type="text" placeholder="Name" name="friendName" id="addName" class="border-2 border-black m-4 p-2 rounded">
+                <input type="text" placeholder="Surname" name="friendSurname" id="addSurname" class="border-2 border-black m-4 p-2 rounded">
+                <input type="date" placeholder="Birthday" name="birthday" id="dateBd" class="border-2 border-black m-4 p-2 rounded">
+                <button type="submit" id="add-btn" class="border-2 border-black m-4 p-2 rounded bg-red-500">submit</button>
+            </form> 
+        </section>
+        <div id="inputError" class="flex justify-center"></div>   
+    </div>
 
     <script src='/js/main.js'></script>
 </body>
