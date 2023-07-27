@@ -266,4 +266,3 @@ app.listen(process.env.PORT || PORT, ()=>{
 // when inserting a name and the wrog surname it still find the person with the same name 
 //sometimes button value is null in main.js
 //make the update path
-//
