@@ -13,6 +13,9 @@ MongoClient.connect(dbConnectionStr, { useUnifiedTopology: true })
         console.log(`Connected to ${dbName} Database`)
         db = client.db(dbName)
     })
+    .catch(err => {
+        console.error('Error connecting to MongoDB:', err)
+    })
 
 //set EJS for views    
 app.set('view engine', 'ejs')
@@ -31,11 +34,11 @@ app.get('/', async (request, response) => {
     const birthdays = await checkBirthdays(db)
     db.collection('friends').countDocuments()
     .then(count => {
-        response.render('index.ejs', { count: count, birthdays: birthdays});
+        response.render('index.ejs', { count: count, birthdays: birthdays})
       })
       .catch(error => {
-        console.error(error);
-        response.render('index', { count: null, error: 'Failed to retrieve count' });
+        console.error(error)
+        response.render('index', { count: null, error: 'Failed to retrieve count' })
       });
     
 })
