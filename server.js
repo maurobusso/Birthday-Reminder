@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const MongoClient = require('mongodb').MongoClient
-const PORT = 2121
+const PORT = process.env.PORT
 require('dotenv').config()
 
 let db,
@@ -44,22 +44,28 @@ app.get('/', async (request, response) => {
 })
 
 async function checkBirthdays(db) {
-    const today = new Date()
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
-    const todayDate = today.toLocaleDateString('en-US', options).replace(/\//g, '-')
-    const dateParts = todayDate.split('-')
-    const yyyyMmDd = `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`
-    
-    const result = await db.collection('friends').find( {birthday: yyyyMmDd}).toArray()
+    try{
+        const today = new Date()
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' }
+        const todayDate = today.toLocaleDateString('en-US', options).replace(/\//g, '-')
+        const dateParts = todayDate.split('-')
+        const yyyyMmDd = `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`
+        
+        const result = await db.collection('friends').find( {birthday: yyyyMmDd}).toArray()
 
-    if (result.length > 0) {
-        console.log('Today is the birthday of:', result.map(r => r.friendName).join(' , '))
-        // Replace console.log with your own alert code
-    } else {
-        console.log('No birthdays today.')
+        if (result.length > 0) {
+            console.log('Today is the birthday of:', result.map(r => r.friendName).join(' , '))
+            // Replace console.log with your own alert code
+        } else {
+            console.log('No birthdays today.')
+        }
+
+
+        return result
+    } catch (error) {
+        console.error('Error occurred while checking birthdays:', error)
+        throw error
     }
-
-    return result
 }
 
 
@@ -122,7 +128,7 @@ app.post('/addBirthday', async(request, response) => {
 
 // find a birthday by name and surname or by only name
 
-app.get('/findBirthday/:name?/:surname?', (request, response) => {
+app.get('/findBirthday/:name?/:surname?', async (request, response) => {
     let name = request.params.name
     let surname = request.params.surname
 
@@ -160,25 +166,25 @@ app.get('/findBirthday/:name?/:surname?', (request, response) => {
 
     // check if name is present in DB it is been changed so that even partials strings will be valid
     // db.collection('friends').findOne({ $or: [ query, {} ] })
-    console.log(query)
-    db.collection('friends').findOne(query)
 
-    .then(data => {
+    try {
+        const data = await db.collection('friends').findOne(query)
         console.log(data)
         if (data) {
-            response.send( data )
+            response.send(data)
             console.log('Birthday found')
         } else {
             response.send({ error: 'No birthday found' })
         }
-    })
-    .catch(error => console.error(error))
+    } catch (error) {
+        console.error(error)
+        response.status(500).send('Internal server error')
+    }
 })
-
 
 // find friend by surname only
 
-app.get('/findBirthday//:surname?', (request, response) => {
+app.get('/findBirthday//:surname?', async (request, response) => {
     let surname = request.params.surname
 
     //check if name and surname are not undefinet then use lowercase and trim
@@ -195,26 +201,21 @@ app.get('/findBirthday//:surname?', (request, response) => {
         query.friendSurname = { $regex: surname, $options: 'i' }
     }
 
-    console.log(query)
-    db.collection('friends').findOne(query)
-
-    .then(data => {
+    try {
+        console.log(query)
+        const data = await db.collection('friends').findOne(query)
         console.log(data)
         if (data) {
-            response.send( data )
+            response.send(data)
             console.log('Birthday found')
         } else {
             response.send({ error: 'No birthday found' })
         }
-    })
-    .catch(error => console.error(error))
+    } catch (error) {
+        console.error(error)
+        response.status(500).send('Internal server error')
+    }
 })
-
-
-//sanitize input
-
-
-
 
 // delete a birthday 
 
@@ -233,7 +234,6 @@ app.delete('/deleteFriend', (request, response) => {
     .catch(error => console.error(error))
 })
 
-
 // this is to display the full list of people in the databe
 
 app.get('/seeListBirthdays', (request, response) => {
@@ -248,7 +248,6 @@ app.get('/seeListBirthdays', (request, response) => {
     })
 })
 
-
 //update existing birthdays
 
 app.post('/updateBirthday', async(request, response) => {
@@ -256,16 +255,14 @@ app.post('/updateBirthday', async(request, response) => {
     response.send('updatedBd.ejs')
 })
 
-
-
 //listen on port ...
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
 })
 
-
 //to fix
 // when inserting a name and the wrog surname it still find the person with the same name 
 //sometimes button value is null in main.js
 //make the update path
+//sanitize input
