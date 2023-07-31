@@ -516,6 +516,10 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
+.m-10 {
+  margin: 2.5rem;
+}
+
 .m-14 {
   margin: 3.5rem;
 }
@@ -532,10 +536,6 @@ video {
   margin: 1rem;
 }
 
-.m-10 {
-  margin: 2.5rem;
-}
-
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -549,16 +549,12 @@ video {
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .w-56 {
   width: 14rem;
-}
-
-.flex-1 {
-  flex: 1 1 0%;
-}
-
-.flex-auto {
-  flex: 1 1 auto;
 }
 
 .flex-row {
@@ -624,12 +620,12 @@ video {
   padding: 0.25rem;
 }
 
-.p-2 {
-  padding: 0.5rem;
-}
-
 .p-10 {
   padding: 2.5rem;
+}
+
+.p-2 {
+  padding: 0.5rem;
 }
 
 .text-6xl {
