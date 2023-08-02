@@ -2,9 +2,11 @@
   "name": "api-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "build:css": "postcss public/css/input.css -o public/css/output.css --watch", 
+    "build:css": "postcss public/css/input.css -o public/css/output.css --watch",
+    "postinstall": "postcss public/css/input.css -o public/css/output.css",
+    "start": "node server.js", 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
