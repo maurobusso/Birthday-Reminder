@@ -4,6 +4,8 @@ The main goal of this project was to enhance back-end development skills while c
 
 Link to the project: https://birthday-app-u9ct.onrender.com
 
+<img width="700px" heigth="900" src="./public/assets/birthday-project-img.png">
+
 #
 
 How is made
