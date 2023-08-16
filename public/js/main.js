@@ -11,19 +11,14 @@ Array.from(updateText).forEach((element)=>{
 
 //fix delete because html has changed 
 async function deleteBirthday(){
-    // const friendName = this.parentNode.childNodes[1].textContent
-    // const surname = this.parentNode.childNodes[3].textContent
-    // const birthday = this.parentNode.childNodes[5].textContent
-    // const age = this.parentNode.childNodes[7].textContent
 
-    //need to trim the name surname atc and remove the text presenrt in the
     const friendName = this.closest('li').querySelector('.friend-name').textContent
     const surname = this.closest('li').querySelector('.surname').textContent
     const birthday = this.closest('li').querySelector('.birthday').textContent
     const age = this.closest('li').querySelector('.age').textContent
     try{
         //fetch to the server to grab the name of who i want to delete
-        //deleteFriend is the rout that is in the server side
+        //deleteFriend is the rute that is in the server side
         const response = await fetch('deleteFriend', {
             method: 'DELETE',
             headers: {'Content-Type': 'application/json'},
@@ -34,7 +29,7 @@ async function deleteBirthday(){
                 'age': age
             })
           })
-        console.log(friendName,surname ,birthday ,age)
+        console.log(friendName, surname, birthday, age)
         const data = await response.json()
         location.reload()
     }catch(err){
@@ -46,10 +41,14 @@ async function deleteBirthday(){
 //update existing birthdays
 
 async function updateBirthday(){
+    const friendId = this.closest('li').querySelector('.id').textContent
     console.log('updated')
     try{
-    const response = await fetch('updateBirthday')
-
+        const response = await fetch(`updateBirthday/${friendId}`, {
+            method: postMessage,
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({friendId})
+        })
     }catch(err){
         console.log(err)
     }

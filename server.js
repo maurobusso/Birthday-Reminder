@@ -126,7 +126,7 @@ app.post('/addBirthday', async(request, response) => {
 })
 
 
-// find a birthday by name and surname or by only name
+// find a birthday by name or surname 
 
 app.get('/findBirthday/:name?/:surname?', async (request, response) => {
     let name = request.params.name
@@ -252,10 +252,20 @@ app.get('/seeListBirthdays', (request, response) => {
 
 app.post('/updateBirthday', async(request, response) => {
 //might need the id of the document 
-    response.send('updatedBd.ejs')
-})
+    const friendId = request.params.id
+    try{
+        await db.collection('friends').updateOne(
+            { _id: Object(friendId) },
+            { $set: {fieldName: newValue, anotherField: anotherValue} }
+        )
 
-//listen on port ...
+        response.status(200).json({message: 'Friend data updated successfully' })
+    }catch (error) {
+        console.log(error)
+        response.status(500).json({ error: 'An error occurred while updating friend data' })
+    }
+    
+})
 
 app.listen(process.env.PORT || PORT, ()=>{
     console.log(`Server running on port ${PORT}`)
